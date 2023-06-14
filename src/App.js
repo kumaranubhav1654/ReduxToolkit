@@ -1,5 +1,4 @@
 import './App.css';
-import Product from './components/Product';
 import {RouterProvider, createBrowserRouter,createRoutesFromElements,Route} from "react-router-dom"
 import Dashboard from './components/Dashboard';
 import Cart from './components/Cart';

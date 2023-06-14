@@ -1,27 +1,24 @@
 import {useState,useEffect} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Axios from "axios";
-import {
-    MDBCard,
-    MDBCardBody,
-    MDBCardTitle,
-    MDBCardText,
-    MDBCardFooter,
-    MDBCardImage,
-    MDBBtn
-  } from 'mdb-react-ui-kit';
-  
+import {MDBCard,MDBCardBody,MDBCardTitle,MDBCardText,MDBCardFooter,MDBCardImage,MDBBtn} from 'mdb-react-ui-kit';
+import { useDispatch } from "react-redux";  
+import { add } from "../store/cartSlice";
 
 const Product=()=>{
 const[productData,setProductData]=useState([]);
 
-
+const dispatch=useDispatch();
 
 useEffect(()=>{
     Axios.get("https://fakestoreapi.com/products").then((res)=>{
         setProductData(res.data);
     })
 },[]);
+
+const addToCart=(product)=>{
+dispatch(add(product))
+}
 
 const cards=productData.map((product)=>(
     <div div className="col-md-3" key={product.id} style={{marginBottom:'10px'}}>
@@ -35,7 +32,7 @@ const cards=productData.map((product)=>(
           </MDBCardText>
           
         </MDBCardBody>
-        <MDBCardFooter><MDBBtn href='#'>Add To Cart</MDBBtn></MDBCardFooter>
+        <MDBCardFooter><MDBBtn href='#' onClick={()=>addToCart(product)}>Add To Cart</MDBBtn></MDBCardFooter>
       </MDBCard>
     </div>
 ));
